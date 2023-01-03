@@ -1,0 +1,124 @@
+1xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="225dp"
+        android:layout_height="663dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:hint="Enter Your Message"
+        android:inputType="textPersonName"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:onClick="sendMessage"
+        android:textSize="20dp"
+        android:background="@color/purple_200"
+        android:textColor="#131313"
+        />
+
+
+</LinearLayout>
+
+1 java
+
+package com.example.hellomessage;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+
+    public void sendMessage(View view)
+    {
+        Intent i = new Intent(this,SecondHelloActivity.class);
+        EditText editText = (EditText) findViewById(R.id.message);
+
+        String message = editText.getText().toString(); // token - msg
+        i.putExtra("msg",message);
+        startActivity(i);
+
+
+    }
+
+}
+
+
+2 xml
+
+<?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="200dp"
+        android:text="TextView"
+        android:textSize="30sp" />
+
+</LinearLayout>
+
+
+2 java 
+
+package com.example.hellomessage;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+public class SecondHelloActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second_hello);
+
+        Intent i = getIntent();
+        String message = i.getStringExtra("msg");
+        TextView textView = findViewById(R.id.result);
+        textView.setText(message);
+
+
+    }
+}
+
+
